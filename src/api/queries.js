@@ -30,6 +30,15 @@ const getTests = (request,response) => {
     })
 }
 
+const getTest = (request,response) => {
+    
+    pool.query(`SELECT * from tests WHERE test = '${request.query.test}'`, (error,result) => {
+        if(error)
+            throw error
+        response.status(200).json(result.rows)
+    })
+}
+
 const getCallgraph = (request,response) => {
 
     let req = 'SELECT * FROM callgraph';
@@ -61,4 +70,5 @@ module.exports = {
     getTests,
     getCallgraph,
     getAllAnalysesIds,
+    getTest,
 }
